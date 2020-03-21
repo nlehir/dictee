@@ -27,8 +27,6 @@ colors = ["#68baa8",
           "#23c2a0"]
 
 
-positions = ["RP", "R1", "R2", "R3"]
-
 config_text = (
     "     Enter : nouvelles notes "
     "| a : augmenter ambitus     "
@@ -45,9 +43,9 @@ class Interface(tk.Frame):
         # self.grid_propagate(0)
         self.pack(fill=tk.BOTH)
         self.note_sequence = list()
-        self.nb_notes = 4
+        self.nb_notes = 50
         self.ambitus = 4
-        self.speed = 2
+        self.speed = 1
         fontsize = 50
         width = 10
 
@@ -131,7 +129,7 @@ class Interface(tk.Frame):
             self.ambitus_pan["text"] = "Ambitus\n{} tons".format(self.ambitus)
 
     def increase_nb_notes(self):
-        if self.nb_notes < 20:
+        if self.nb_notes < 150:
             self.nb_notes += 1
             self.nb_notes_pan["text"] = "Nb notes\n{}".format(self.nb_notes)
 
@@ -146,13 +144,26 @@ class Interface(tk.Frame):
 
     def increase_speed(self):
         if self.speed < 8:
-            self.speed += 1
-            self.speed_pan["text"] = "Vitesse\n{} nps".format(self.speed)
+            if self.speed >=1:
+                self.speed += 1
+            else:
+                self.speed *= 2
+        if self.speed >= 1:
+            written_speed = self.speed
+        else:
+            written_speed = f"1/{1/self.speed:.0f}"
+        self.speed_pan["text"] = f"Vitesse\n{written_speed} nps"
 
     def decrease_speed(self):
         if self.speed > 1:
             self.speed -= 1
-            self.speed_pan["text"] = "Vitesse\n{} nps".format(self.speed)
+        elif self.speed <= 1:
+            self.speed/=2
+        if self.speed >= 1:
+            written_speed = self.speed
+        else:
+            written_speed = f"1/{1/self.speed:.0f}"
+        self.speed_pan["text"] = f"Vitesse\n{written_speed} nps"
 
     def string_from_integer(self, note_int):
         return self.all_notes[note_int]
