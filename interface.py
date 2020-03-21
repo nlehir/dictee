@@ -44,6 +44,7 @@ class Interface(tk.Frame):
         self.pack(fill=tk.BOTH)
         self.note_sequence = list()
         self.nb_notes = 50
+        # self.nb_notes = 5
         self.ambitus = 4
         self.speed = 1/2
         # self.speed = 3

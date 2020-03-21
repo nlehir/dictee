@@ -6,19 +6,13 @@ def generate_one_frequency(center_offset_to_a4, ambitus):
         ambitus is in semi tones
         n_note is in semitones
     """
-    if ambitus == 1:
-        offset_to_center = random.randint(0, 1)
+    if ambitus % 2 == 0:
+        p = ambitus // 2
+        offset_to_center = random.randint(-p, p)
     else:
-        if ambitus % 2 == 0:
-            p = ambitus // 2
-            offset_to_center = random.randint(-p, p)
-        else:
-            p = (ambitus - 1) // 2
-            offset_to_center = random.randint(-p-1, p)
-    print("---")
-    print(offset_to_center)
+        p = (ambitus - 1) // 2
+        offset_to_center = random.randint(-p, p+1)
     n_note = center_offset_to_a4 + offset_to_center
-    # offset_to_a4 = n_note - center_offset_to_a4
     frequency = pow(2, n_note/12)*440
     return frequency
 
