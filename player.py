@@ -49,7 +49,7 @@ def play_sequence(frequencies_sequence, nb_notes_per_second):
     waveform = build_array(nb_notes_per_second, frequencies_sequence)
 
     period = 1/nb_notes_per_second
-    duration_s = period*nb_notes*1.8
+    duration_s = period*nb_notes*1.1
 
     # Attenuation so the sound is reasonable
     atten = 0.3

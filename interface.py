@@ -45,7 +45,8 @@ class Interface(tk.Frame):
         self.note_sequence = list()
         self.nb_notes = 50
         self.ambitus = 4
-        self.speed = 1
+        self.speed = 1/2
+        # self.speed = 3
         fontsize = 50
         width = 10
 
@@ -70,7 +71,7 @@ class Interface(tk.Frame):
             height=3,
             bg=random.choice(colors),
             font=(font, fontsize),
-            text="Ambitus\n{} tons".format(self.ambitus))
+            text="Ambitus\n{} demi tons".format(self.ambitus))
         self.ambitus_pan.pack(side="left")
 
         self.center_pan = tk.Label(
@@ -82,13 +83,18 @@ class Interface(tk.Frame):
             text="Appuyer\nsur\nEntrée")
         self.center_pan.pack(side="left")
 
+        if self.speed >= 1:
+            written_speed = self.speed
+        else:
+            written_speed = f"1/{1/self.speed:.0f}"
+
         self.speed_pan = tk.Label(
             self.pan_1,
             width=width,
             height=3,
             bg=random.choice(colors),
             font=(font, fontsize),
-            text="Vitesse\n{} nps".format(self.speed))
+            text=f"Vitesse\n{written_speed} nps")
         self.speed_pan.pack(side="left")
 
         self.options = tk.Label(self, bg="#73abf5", width="60")
@@ -111,6 +117,7 @@ class Interface(tk.Frame):
     def next_note_sequence(self):
         """
             center is offset compared to A4
+            in semi tones
         """
         self.center_offset_to_a4 = random.randint(-9, 3)
         self.frequencices_sequence = frequencies.build_frequencies_sequence(
@@ -119,14 +126,14 @@ class Interface(tk.Frame):
             self.ambitus)
 
     def increase_ambitus(self):
-        if self.ambitus < 20:
+        if self.ambitus < 40:
             self.ambitus += 1
-            self.ambitus_pan["text"] = "Ambitus\n{} tons".format(self.ambitus)
+            self.ambitus_pan["text"] = "Ambitus\n{} demi tons".format(self.ambitus)
 
     def decrease_ambitus(self):
         if self.ambitus > 1:
             self.ambitus -= 1
-            self.ambitus_pan["text"] = "Ambitus\n{} tons".format(self.ambitus)
+            self.ambitus_pan["text"] = "Ambitus\n{} demi tons".format(self.ambitus)
 
     def increase_nb_notes(self):
         if self.nb_notes < 150:
